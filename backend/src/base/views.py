@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from rest_auth.views import UserDetailsView
 from src.base.filters import ViolationFilterSet
 from src.base.models import Employee, Camera, Violation, Frame
-from src.base.serializers import ChartSerializer, EmployeeSeializer, CameraSerializer, UserSerializer, ViolationSerializer, FrameSerializer
+from src.base.serializers import ChartSerializer, DetectSerializer, EmployeeSeializer, CameraSerializer, UserSerializer, ViolationSerializer, FrameSerializer
 
 class EmployeeViewSet(viewsets.ModelViewSet):
     queryset = Employee.objects.all()
@@ -94,6 +94,22 @@ class ViolationViewSet(viewsets.ReadOnlyModelViewSet):
 class FrameViewSet(viewsets.ModelViewSet):
     queryset = Frame.objects.all()
     serializer_class = FrameSerializer
+
+
+    @action(detail=False, methods=['POST'])
+    def detect(self, request):
+        data = DetectSerializer(data=request.data)
+        data.is_valid(raise_exception=True)
+        photo = data['photo']
+
+        # do some staff
+
+        return Response(
+            {
+                'result': '',
+                'defines': [],
+            }
+        )
 
 
 class UserView(UserDetailsView):

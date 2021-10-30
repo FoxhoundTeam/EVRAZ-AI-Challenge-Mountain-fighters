@@ -21,6 +21,9 @@ class CameraSerializer(serializers.ModelSerializer):
 
         return data
 
+class DetectSerializer(serializers.Serializer):
+    photo = serializers.ImageField()
+
 class CameraStaticSerializer(serializers.Serializer):
     id = serializers.IntegerField()
     name = serializers.CharField()
