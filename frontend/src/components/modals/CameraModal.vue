@@ -120,6 +120,7 @@ export default {
     async save() {
         let response = await http.updateItem('Camera', this.camera.id, this.camera, true);
         this.camera = response.data;
+        this.closeModal()
     }
   },
 };
