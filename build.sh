@@ -4,7 +4,7 @@ set -e
 
 
 function build() {
-  docker build . -f ./compose/$1/Dockerfile -t foxhound_$1
+  docker build . -f ./compose/$1/Dockerfile -t mf_$1
 }
 
 build web

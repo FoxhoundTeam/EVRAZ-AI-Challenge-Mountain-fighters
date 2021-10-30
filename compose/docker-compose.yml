@@ -20,11 +20,11 @@ services:
     env_file: .uwsgi.env
 
   frontend:
-    image: foxhound_frontend
+    image: mf_frontend
     restart: unless-stopped
 
   nginx:
-    image: foxhound_nginx
+    image: mf_nginx
     restart: unless-stopped
     depends_on:
       - web

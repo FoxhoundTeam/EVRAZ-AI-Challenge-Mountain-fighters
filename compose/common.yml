@@ -2,7 +2,7 @@ version: '2.4'
 
 services:
   web_base:
-    image: foxhound_web
+    image: mf_web
     restart: unless-stopped
     volumes:
       - ./mounts/uwsgi:/uwsgi

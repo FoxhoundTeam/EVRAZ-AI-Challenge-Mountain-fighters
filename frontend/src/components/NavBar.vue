@@ -60,7 +60,7 @@
     </v-navigation-drawer>
 
     <v-app-bar app clipped-left>
-      <v-app-bar-title>Foxhound</v-app-bar-title>
+      <v-app-bar-title>Mountain fighters</v-app-bar-title>
     </v-app-bar>
   </div>
 </template>

@@ -1,14 +1,14 @@
 <template>
   <b-container>
     <b-row class="mt-5">
-      <b-col cols="12"><h1>Foxhound</h1></b-col>
+      <b-col cols="12"><h1>Mountain fighters</h1></b-col>
     </b-row>
     <b-row>
       <b-col class="my-1" sm="7" order-sm="1" order="12"
         >
         <!-- <b-img class="w-75" :src="hackLogo"></b-img> -->
         <h3 class="mt-2">
-          Поиск нарушителей.
+          Система для контроля опасных зон агломашины.
         </h3></b-col
       >
       <b-col class="my-1" order-sm="12" order="1" sm="5">
