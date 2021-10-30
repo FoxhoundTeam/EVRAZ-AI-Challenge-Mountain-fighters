@@ -47,6 +47,7 @@ const store = new Vuex.Store({
                         label: 'Нарушения',
                         borderColor: '#f87979',
                         data: chart,
+                        tension: 0,
                     }
                 ]
             };

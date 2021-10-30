@@ -62,6 +62,10 @@ export default {
       },
       set(value) {
         this.$store.commit("setDates", value);
+        this.$router.replace({
+          name: this.$route.name,
+          query: { type: this.$store.state.periodType, dt_from: this.dates[0], dt_to: this.dates[1] },
+        });
       },
     },
   },
@@ -69,15 +73,6 @@ export default {
     async dates() {
       await this.$store.dispatch("setViolations");
       await this.$store.dispatch("setChart");
-      if (
-        this.$store.state.periodType == 4 &&
-        (this.$route.query.dt_from != this.dates[0] ||
-          this.$route.query.dt_to != this.dates[1])
-      )
-        this.$router.replace({
-          name: this.$route.name,
-          query: { type: 4, dt_from: this.dates[0], dt_to: this.dates[1] },
-        });
     },
   },
   async mounted() {
@@ -89,7 +84,7 @@ export default {
       if (this.$route.query.type) {
         this.$store.commit("setPeriodType", Number(this.$route.query.type));
       }
-      if (this.$route.query.type == "4" || !this.$route.query.type) {
+      if (this.$route.query.type == "4" || !this.$route.query.type || !this.dates.length) {
         this.dates = dates;
       }
 
