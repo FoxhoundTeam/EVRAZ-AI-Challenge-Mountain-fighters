@@ -28,7 +28,17 @@ let opts = {
       component: () => import('../views/Camera.vue'),
       meta: {
         requiresAuth: true
-      }
+      },
+      children: [
+        {
+          path: "config/:id",
+          name: "CameraConfig",
+          component: () => import('../components/modals/CameraModal.vue'),
+          meta: {
+            requiresAuth: true
+          },
+        },
+      ]
     },
     {
       path: "/violations",

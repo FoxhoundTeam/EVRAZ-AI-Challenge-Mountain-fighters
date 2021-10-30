@@ -24,7 +24,7 @@ class EmployeeViewSet(viewsets.ModelViewSet):
         )
 
 
-class CameraViewSet(viewsets.ReadOnlyModelViewSet):
+class CameraViewSet(viewsets.ModelViewSet):
     queryset = Camera.objects.all().select_related('work_shop')
     serializer_class = CameraSerializer
 

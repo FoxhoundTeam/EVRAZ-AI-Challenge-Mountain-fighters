@@ -21,6 +21,12 @@ class Camera(models.Model):
     work_shop = models.ForeignKey(WorkShop, on_delete=models.PROTECT)
     code = models.CharField(max_length=256, unique=True)
     comment = models.TextField(null=True, blank=True)
+    vertical_angle = models.FloatField(default=0)
+    horizontal_angle = models.FloatField(default=0)
+    height = models.FloatField(default=0)
+    distance_to_line = models.FloatField(default=0)
+    focus = models.FloatField(default=0)
+    sensor_size = models.FloatField(default=0)
 
 
 class Frame(models.Model):
