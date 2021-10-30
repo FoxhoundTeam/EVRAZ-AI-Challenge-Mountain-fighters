@@ -39,7 +39,7 @@
       </v-col>
       <v-col cols="2" style="overflow-y: scroll; max-height: 90vh">
         <v-card class="text-center mb-3">
-          <v-card-title><span class="text-body-1">Остановить предупреждения</span></v-card-title>
+          <v-card-title style="word-break: normal !important;"><span class="text-body-1 text-no-break">Остановить предупреждения</span></v-card-title>
           <v-btn block class='mb-3' color="warning">На 5 минут</v-btn>
           <v-btn block class="text-light" color="#E53935">На 15 минут</v-btn>
         </v-card>
