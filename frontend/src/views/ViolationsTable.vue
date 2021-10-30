@@ -34,9 +34,9 @@
           height="200px"
           contain
           :src="
-            selected.frame
+            selected.id
               ? selected.frame.photo
-              : 'https://lh3.googleusercontent.com/proxy/I5jMTQe_g6KsFDoavPRIAh0injcdnbfDoPyM1-t0feO2BZTpBhOZQHuz9UXCWrGf-iHwZrOFgwxtJU8s6VAd9ij7WT8rRN20FOBj_25CRJEHNZMUaC7x-1lF_segEvMOPsXOXwMeHVHfQzFLVw'
+              : placeholder
           "
           @click="selected.id ? $router.replace({name: 'ViolationPhoto', params: {id: selected.id}}) : null"
           :style="selected.id ? 'cursor: pointer;' : ''"
@@ -44,7 +44,7 @@
         </v-img>
 
         <v-card-text>
-          <div v-if="selected.frame">
+          <div v-if="selected.id">
             <v-list disabled>
               <v-subheader>Нарушение</v-subheader>
               <v-list-item-group color="primary">
@@ -90,14 +90,15 @@ export default {
   data() {
     return {
       selected: {},
+      placeholder: require('../assets/placeholder.jpg'),
       search: '',
       headers: [
         {
           text: "Время",
           value: "frame.dttm",
         },
-        { text: "Камера", value: "frame.camera_name" },
-        { text: "Номер цеха", value: "frame.camera_name" },
+        { text: "Камера", value: "frame.camera.name" },
+        { text: "Цех", value: "frame.camera.work_shop_name" },
       ],
     };
   },
@@ -112,7 +113,7 @@ export default {
     },
     filtereditems() {
       return this.$store.state.violations.filter((item) => {
-        return item.frame.camera_name.toLowerCase().match(this.search.toLowerCase());
+        return (item.frame.camera.name.toLowerCase().match(this.search.toLowerCase()) || item.frame.camera.work_shop_name.toLowerCase().match(this.search.toLowerCase()));
       });
     },
   },

@@ -36,8 +36,8 @@ export default {
           text: "Время",
           value: "frame.dttm",
         },
-        { text: "Камера", value: "frame.camera_name" },
-        { text: "Номер цеха", value: "frame.camera_name" },
+        { text: "Камера", value: "frame.camera.name" },
+        { text: "Цех", value: "frame.camera.work_shop_name" },
       ],
     };
   },

@@ -1,4 +1,4 @@
-from src.base.models import Camera, Frame, Violation
+from src.base.models import Camera, Frame, Violation, WorkShop
 from datetime import timedelta
 from django.core.files import File
 
@@ -10,12 +10,15 @@ CAMERAS = {
 }
 
 def fill_db(dttm_start, folder_path):
+    ws, _ = WorkShop.objects.get_or_create(name='Рабочий цех № 1', code='ddf889-cade-222-cffaaad26099')
+
     with open('etc/files.txt') as f:
         files = f.read().split('\n')
     
     for cam, codes in CAMERAS.items():
         cam, _ = Camera.objects.update_or_create(
             name=cam,
+            work_shop=ws,
             defaults={
                 'code': ''.join(codes),
             }

@@ -11,7 +11,7 @@ let opts = {
       name: "Index",
       redirect: "/dashboard",
       meta: {
-        requiresAuth: false
+        requiresAuth: true
       }
     },
     {
@@ -19,7 +19,7 @@ let opts = {
       name: "Dashboard",
       component: () => import('../views/Dashboard.vue'),
       meta: {
-        requiresAuth: false
+        requiresAuth: true
       }
     },
     {
@@ -27,7 +27,7 @@ let opts = {
       name: "Camera",
       component: () => import('../views/Camera.vue'),
       meta: {
-        requiresAuth: false
+        requiresAuth: true
       }
     },
     {
@@ -35,7 +35,7 @@ let opts = {
       name: "Violation",
       component: () => import('../views/ViolationsTable.vue'),
       meta: {
-        requiresAuth: false
+        requiresAuth: true
       },
       children: [
         {
@@ -43,7 +43,7 @@ let opts = {
           name: "ViolationPhoto",
           component: () => import('../components/modals/ViolationModal.vue'),
           meta: {
-            requiresAuth: false
+            requiresAuth: true
           },
         },
       ]
@@ -56,40 +56,6 @@ let opts = {
         requiresAuth: false
       }
     },
-    // {
-    //   path: "/profile",
-    //   name: "Profile",
-    //   component: () => import('../views/Profile.vue'),
-    //   meta: {
-    //     requiresAuth: false
-    //   },
-    // },
-    // {
-    //   path: "/editor",
-    //   name: "Editor",
-    //   component: () => import('../views/Editor.vue'),
-    //   meta: {
-    //     requiresAuth: false
-    //   },
-    //   children: [
-    //     // {
-    //     //   path: "add_dataset",
-    //     //   name: "SelectDataset",
-    //     //   component: () => import('../components/modals/ModalSelectDataset.vue'),
-    //     //   meta: {
-    //     //     requiresAuth: false
-    //     //   },
-    //     // },
-    //     // {
-    //     //   path: "result",
-    //     //   name: "ShowResult",
-    //     //   component: () => import('../components/modals/ModalShowSavedRes.vue'),
-    //     //   meta: {
-    //     //     requiresAuth: false
-    //     //   },
-    //     // }
-    //   ]
-    // },
   ],
   linkExactActiveClass: 'active'
 };

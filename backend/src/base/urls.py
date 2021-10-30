@@ -4,6 +4,7 @@ from rest_framework import routers
 from src.base.views import (
     EmployeeViewSet,
     CameraViewSet,
+    UserView,
     ViolationViewSet,
     FrameViewSet
 )
@@ -11,7 +12,7 @@ from src.base.views import (
 rest_auth_urls = [
     url(r'^login/$', LoginView.as_view(), name='rest_login'),
     url(r'^logout/$', LogoutView.as_view(), name='rest_logout'),
-    url(r'^user/$', UserDetailsView.as_view(), name='user'),
+    url(r'^user/$', UserView.as_view(), name='user'),
 ]
 
 router = routers.DefaultRouter()

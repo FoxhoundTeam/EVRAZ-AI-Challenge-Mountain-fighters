@@ -1,11 +1,14 @@
 .DS_Store
 node_modules
-/dist
+dist
 env
 media
 __pycache__
 db.sqlite3
 data_task2
+.env
+.uwsgi.env
+mounts
 
 package-lock.json
 # local env files

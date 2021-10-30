@@ -1,5 +1,9 @@
 from src.base.models import Employee, Camera, Violation, Frame
 from rest_framework import serializers
+from rest_auth.serializers import UserDetailsSerializer
+import jwt
+
+from src.settings import CENTRIFUGO_JWT_SECRET
 
 class EmployeeSeializer(serializers.ModelSerializer):
     class Meta:
@@ -13,13 +17,24 @@ class CameraSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
-        data['last_frame'] = FrameSerializer(instance=Frame.objects.filter(camera_id=data['id']).order_by('dttm').last()).data
+        data['last_frame'] = StaticFrameSerializer(instance=Frame.objects.filter(camera_id=data['id']).order_by('dttm').last()).data
 
         return data
 
+class CameraStaticSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    name = serializers.CharField()
+    code = serializers.CharField()
+    work_shop_name = serializers.CharField(source='work_shop.name')
+
+class StaticFrameSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    photo = serializers.ImageField(read_only=True)
+    dttm = serializers.DateTimeField()
+
 class FrameSerializer(serializers.ModelSerializer):
     camera_code = serializers.CharField(required=False, write_only=True)
-    camera_name = serializers.CharField(source='camera.name')
+    camera = CameraStaticSerializer()
     class Meta:
         model = Frame
         fields = '__all__'
@@ -32,6 +47,13 @@ class FrameSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError(f'Camera with code {code} doesn\'t exist')
             attrs['camera_id'] = camera.id
         return attrs
+    
+    
+    def create(self, validated_data):
+        instace = super().create(validated_data)
+        instace.save(send_to_socket=True)
+        return instace
+
 
 class ViolationSerializer(serializers.ModelSerializer):
     employee = EmployeeSeializer()
@@ -43,3 +65,9 @@ class ViolationSerializer(serializers.ModelSerializer):
 class ChartSerializer(serializers.Serializer):
     dt_from = serializers.DateField()
     dt_to = serializers.DateField()
+
+class UserSerializer(UserDetailsSerializer):
+    def to_representation(self, instance):
+        ret = super().to_representation(instance)
+        ret['token'] = jwt.encode({"sub": str(instance.id)}, CENTRIFUGO_JWT_SECRET).decode()
+        return ret

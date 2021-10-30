@@ -10,45 +10,9 @@ const store = new Vuex.Store({
     state: {
         user: null,
         isAuthenticated: false,
-        cameras: [
-            {
-                id: 1,
-                name: "CAM 1",
-                code: "abc02adff2-900",
-                last_frame: {
-                    dttm: "2021-10-29 08:00:00",
-                    photo: "https://www.teahub.io/photos/full/97-971701_inside-abandoned-factory.jpg",
-                }
-            },
-            {
-                id: 2,
-                name: "CAM 2",
-                code: "abc02adff2-900",
-                last_frame: {
-                    dttm: "2021-10-29 08:00:00",
-                    photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZF4LP5fvII3TVnRJGFH7l7OilGGK8iWBwlg&usqp=CAU",
-                }
-            },
-            {
-                id: 3,
-                name: "CAM 3",
-                code: "abc02adff2-900",
-                last_frame: {
-                    dttm: "2021-10-29 08:00:00",
-                    photo: "https://cdn.wallpapersafari.com/65/69/Zydxgh.jpg",
-                }
-            },
-        ],
+        cameras: [],
         violations: [],
-        selectedCamera: {
-            id: 1,
-            name: "CAM 1",
-            code: "abc02adff2-900",
-            last_frame: {
-                dttm: "2021-10-29 08:00:00",
-                photo: "https://www.teahub.io/photos/full/97-971701_inside-abandoned-factory.jpg",
-            }
-        },
+        selectedCamera: {},
         camerasCount: null,
         employeesCount: null,
         violationsCount: null,
@@ -98,7 +62,20 @@ const store = new Vuex.Store({
         },
         setEmployeeStat(state, employeeStat) {
             state.employeesCount = employeeStat;
-        }
+        },
+        addFrame(state, frame) {
+            if (state.cameras.length) {
+                let ind = state.cameras.findIndex(v => v.id == frame.camera.id)
+                if (ind != -1) {
+                    let camera = state.cameras[ind];
+                    camera.last_frame = frame;
+                    Vue.set(state.cameras, ind, camera);
+                }
+            }
+        },
+        addViolation(state, violation) {
+            state.violations.unshift(violation);
+        },
     },
     actions: {
         async setCameras(context) {
@@ -165,7 +142,7 @@ const store = new Vuex.Store({
             }
             var status = false;
             try {
-                await (Axios.post("/rest_api/auth/login/", login_info));
+                await (Axios.post("/rest_api/auth/login/", login_info, {headers: {'X-CSRFToken': Vue.$cookies.get('csrftoken')}}));
                 status = true;
             } catch (error) {
                 var data = error.response.data;
@@ -183,7 +160,7 @@ const store = new Vuex.Store({
             return status;
         },
         async logout(context) {
-            await Axios.post("/rest_api/auth/logout/");
+            await Axios.post("/rest_api/auth/logout/", {headers: {'X-CSRFToken': Vue.$cookies.get('csrftoken')}});
             context.commit('setAuthenticated', false);
             context.commit('setUser', {});
         },

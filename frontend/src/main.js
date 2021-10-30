@@ -9,6 +9,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import store from './store';
 import vuetify from './plugins/vuetify'
+import Centrifuge from 'centrifuge'
 
 
 Vue.use(ErrorModal)
@@ -38,5 +39,22 @@ store.dispatch('checkAuth').then(() => {
     vuetify,
     render: h => h(App)
   }).$mount('#app')
+  var centrifuge = new Centrifuge(`ws://${location.host}/centrifugo/connection/websocket`);
+
+  centrifuge.setToken(store.state.user.token);
+
+  var actions = {
+    Frame: 'addFrame',
+    Violation: 'addViolation',
+  }
+
+  centrifuge.subscribe('updates', function (message) {
+    var data = message.data;
+    if (data.type === 'model'){
+      store.commit(actions[data.model], data.data);
+    }
+  });
+
+  centrifuge.connect();
 })
 Axios.defaults.headers.common['Content-Type'] = 'application/json';

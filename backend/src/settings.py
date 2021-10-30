@@ -28,6 +28,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+CENTRIFUGO_API_KEY = 'e80baf35-b990-414a-be6f-27e4c3d41e70'
+CENTRIFUGO_JWT_SECRET = '052ac3a7-5200-4cc8-bd70-3984c0e3cf1c'
+CNETRIFUGO_HOST = "http://centrifugo:8000"
 
 # Application definition
 
@@ -90,7 +93,7 @@ WSGI_APPLICATION = 'wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db', 'db.sqlite3'),
     }
 }
 

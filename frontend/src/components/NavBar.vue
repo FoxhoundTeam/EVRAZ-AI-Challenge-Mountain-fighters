@@ -6,7 +6,7 @@
       clipped
       mini-variant
       app
-      v-if="!$store.state.isAuthenticated"
+      v-if="$store.state.isAuthenticated"
     >
       <v-list nav dense active-class="deep-purple--text text--accent-4">
         <v-list-item link :to="{name: 'Dashboard', query: {...$route.query}}">

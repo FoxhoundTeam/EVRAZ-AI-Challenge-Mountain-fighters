@@ -5,9 +5,10 @@ import pandas as pd
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_auth.views import UserDetailsView
 from src.base.filters import ViolationFilterSet
 from src.base.models import Employee, Camera, Violation, Frame
-from src.base.serializers import ChartSerializer, EmployeeSeializer, CameraSerializer, ViolationSerializer, FrameSerializer
+from src.base.serializers import ChartSerializer, EmployeeSeializer, CameraSerializer, UserSerializer, ViolationSerializer, FrameSerializer
 
 class EmployeeViewSet(viewsets.ModelViewSet):
     queryset = Employee.objects.all()
@@ -24,7 +25,7 @@ class EmployeeViewSet(viewsets.ModelViewSet):
 
 
 class CameraViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Camera.objects.all()
+    queryset = Camera.objects.all().select_related('work_shop')
     serializer_class = CameraSerializer
 
     @action(detail=False, methods=['get'])
@@ -38,7 +39,7 @@ class CameraViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class ViolationViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Violation.objects.all().select_related('employee', 'frame__camera')
+    queryset = Violation.objects.all().select_related('employee', 'frame__camera', 'frame__camera__work_shop').order_by('-frame__dttm')
     serializer_class = ViolationSerializer
     filterset_class = ViolationFilterSet
 
@@ -93,3 +94,7 @@ class ViolationViewSet(viewsets.ReadOnlyModelViewSet):
 class FrameViewSet(viewsets.ModelViewSet):
     queryset = Frame.objects.all()
     serializer_class = FrameSerializer
+
+
+class UserView(UserDetailsView):
+    serializer_class = UserSerializer
