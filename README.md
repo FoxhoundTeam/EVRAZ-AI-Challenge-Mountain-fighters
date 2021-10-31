@@ -13,6 +13,10 @@
 
 ![image](https://user-images.githubusercontent.com/26321368/139573830-469c4fa1-77cd-4cee-8b6f-cfaa38a7dce9.png)
 
+Примеры размеченных изображений в каталоге `/visualized_recognition`
+
+![am3_9_frame027](https://user-images.githubusercontent.com/26321368/139573973-d64599b2-2b63-49b1-a693-cafca3eac2af.jpg)
+
 
 ## Описание решения
 Решение представляет собой cистемy для контроля опасных зон агломашины.
