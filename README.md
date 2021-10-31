@@ -11,6 +11,9 @@
 4. Запустить jupyter notebook или jupyter lab в каталоге репозитория.
 5. Открыть `\EVRAZ-AI-Challenge-Mountain-fighters\darkeras-yolov4\Mountain-fighters team ML RnD.ipynb`
 
+![image](https://user-images.githubusercontent.com/26321368/139573830-469c4fa1-77cd-4cee-8b6f-cfaa38a7dce9.png)
+
+
 ## Описание решения
 Решение представляет собой cистемy для контроля опасных зон агломашины.
 
