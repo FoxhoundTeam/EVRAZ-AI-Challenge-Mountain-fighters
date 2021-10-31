@@ -1,10 +1,20 @@
 # EVRAZ-AI-Challenge-Mountain-fighters
 Хакатон EVRAZ [AI Challenge](https://hackathon.evraz.com/), 29-31 октября 2021 г. Решение команды **Mountain fighters**.
 
+## Нейросеть
+
+На основе YOLOv4 (https://github.com/tranleanh/darkeras-yolov4), с предобученными весами https://github.com/AlexeyAB/darknet/releases/download/darknet_yolo_v3_optimal/yolov4.weights. Для работы в jupyter
+
+1. Клонировать данный репозиторий
+2. Разместить датасет в каталоге data_task2 рядом с репозиторием (не копировать в репозиторий)
+3. Скачать в папку `\EVRAZ-AI-Challenge-Mountain-fighters\darkeras-yolov4\weights` файл `yolov4.weights` по ссылке https://github.com/AlexeyAB/darknet/releases/download/darknet_yolo_v3_optimal/yolov4.weights.
+4. Запустить jupyter notebook или jupyter lab в каталоге репозитория.
+5. Открыть `\EVRAZ-AI-Challenge-Mountain-fighters\darkeras-yolov4\Mountain-fighters team ML RnD.ipynb`
+
 ## Описание решения
 Решение представляет собой cистемy для контроля опасных зон агломашины.
 
-Система позволяет анализоровать в режиме реального времени кадры с камер и определять нарушения.
+Прототип веб-приложения позволяет воспроизводить в режиме реального времени кадры с камер, каталогизировать нарушения техники безопасности (при подключении модуля машинного обучения).
 
 ## Инструкция по запуску
 Демо решение расположено по адресу [http://178.154.222.147/](http://178.154.222.147/) (демо-приложение доступно до вечера 2 ноября 2021 г.)
